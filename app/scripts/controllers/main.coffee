@@ -6,9 +6,13 @@ angular.module('firebangularApp')
       name: ''
       duder: ''
 
+    $scope.fires = []
+
     myDataRef = new Firebase('https://rcxg0nng0ki.firebaseio-demo.com/')
 
     $scope.addToFire = ->
       myDataRef.push $scope.object
 
-    $scope.fires = myDataRef
+    myDataRef.on 'child_added', (snapshot) ->
+      obj = snapshot.val()
+      $scope.fires.push obj
