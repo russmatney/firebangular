@@ -8,16 +8,25 @@ angular.module('firebangularApp')
     angularFire(chatsRef.limit(15), $scope, "chats")
     angularFire(activitiesRef.limit(15), $scope, "activities")
 
-    addActivity = (object) ->
+    addActivity = (event, detail) ->
       date = new Date()
       activity =
-        event: "added message"
-        user: object.name
+        event: event
+        user: $scope.userName
         date: date.toString()
-        detail: object.message
+        detail: detail
       activitiesRef.push activity
 
-    $scope.addMessage = ->
-      chatsRef.push $scope.object
-      addActivity($scope.object)
-      $scope.object.message = ''
+    $scope.addMessage = (chat) ->
+      chatsRef.push {name: $scope.userName, message:chat.message}
+      addActivity("added message", chat.message)
+      $scope.chat.message = ''
+      $scope.lockName = true
+
+    $scope.plusOne = (chat) ->
+      if chat.pluses?
+        chat.pluses += 1
+      else
+        chat.pluses = 1
+      addActivity("plus one-d", chat.message)
+
