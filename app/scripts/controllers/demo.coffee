@@ -30,3 +30,9 @@ angular.module('firebangularApp')
         chat.pluses = 1
       addActivity("plus one-d", chat.message)
 
+    # doesn't work yet.
+    # $scope.delete = (chat) ->
+    #   console.log $scope.chats
+    #   chatsRef.slice(index, 1)
+    #   addActivity("deleted", chat.message)
+
