@@ -30,7 +30,7 @@
       <li ng-repeat="chat in chats">
         <!-- <small ng-click="delete(chat)" id="plus">(delete)</small> -->
         <small>{{chat.name}}</small>: {{chat.message}} 
-        <small class="pull-right">{{chat.pluses}}<span ng-click="plusOne(chat)" id="plus">+</span></small>
+        <small class="pull-right"> {{chat.pluses}} <span ng-click="plusOne(chat)" id="plus">+</span></small>
       </li>
     </ul>
   </div>
@@ -39,7 +39,21 @@
     <h3>Activity Feed</h3>
     <ul>
       <li ng-repeat="activity in activities | orderBy:'desc'">
-        <small>{{ activity.date }}</small>: {{activity.user}} <strong>{{activity.event}}</strong> "{{activity.detail}}"
+        <span ng-switch="activity.event">
+          
+          <span ng-switch-when="added message">
+            <small>{{ activity.date }}</small>: {{activity.user}} <strong>Done added a message on over there</strong> "{{activity.detail}}"
+          </span>
+
+          <span ng-switch-when="plus one-d">
+            <small>{{ activity.date }}</small>: {{activity.user}} <strong>Was all like, plus-one, and stuff to</strong> "{{activity.detail}}"
+          </span>
+
+          <span ng-switch-default>
+            <small>{{ activity.date }}</small>: {{activity.user}} <strong>{{activity.event}}</strong> "{{activity.detail}}"
+          </span>
+
+        </span>
       <br>
       <br>
       </li>
